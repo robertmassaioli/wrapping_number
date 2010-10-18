@@ -1,4 +1,5 @@
 .*.swp
+.gdb_history
 CMakeCache.txt
 CMakeFiles/
 Makefile

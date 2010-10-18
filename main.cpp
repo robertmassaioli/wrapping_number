@@ -21,7 +21,7 @@ int main(int argc, char** argv) {
   //cout << "Add nine: " << (wn + 9) << endl; 
   
   for(int i = 0; i < 100; ++i) {
-    //cout << wn-- << endl;
+    cout << wn-- << endl;
   }
 
   return 0;

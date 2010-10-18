@@ -27,12 +27,25 @@ class wrapped_int {
 
     // post-increment
     const wrapped_int<int_type_, wrapped_min, wrapped_max> operator++(int);
-    const wrapped_int<int_type_, wrapped_min, wrapped_max> operator--(int);
+    //const wrapped_int<int_type_, wrapped_min, wrapped_max> operator--(int);
+
+    const wrapped_int<int_type_, wrapped_min, wrapped_max> operator++(int) { 
+      wrapped_int<int_type_, wrapped_min, wrapped_max> new_w = *this; 
+      ++(*this); 
+      return new_w; 
+    } 
+
+    const wrapped_int<int_type_, wrapped_min, wrapped_max> operator--(int) { 
+      wrapped_int<int_type_, wrapped_min, wrapped_max> new_w = *this; 
+      --(*this); 
+      return new_w; 
+    }
+
     void operator-=(int_type_ t) {
       value = keepValueInRange(value - t);
     }
 
-    int_type_ get() { return value; }
+    int_type_ get() const { return value; }
       
   private:
     int_type_ value;
@@ -44,12 +57,6 @@ class wrapped_int {
       return val;
     }
 };
-
-template<typename int_type_, int_type_ wrapped_min, int_type_ wrapped_max>
-const wrapped_int<int_type_, wrapped_min, wrapped_max> wrapped_int<int_type_, wrapped_min, wrapped_max>::operator++(int) { wrapped_int<int_type_, wrapped_min, wrapped_max> new_w = *this; ++(*this); return new_w; } 
-template<typename int_type_, int_type_ wrapped_min, int_type_ wrapped_max>
-const wrapped_int<int_type_, wrapped_min, wrapped_max> wrapped_int<int_type_, wrapped_min, wrapped_max>::operator--(int) { wrapped_int<int_type_, wrapped_min, wrapped_max> new_w = *this; --(*this); return new_w; }
-
 
 template<typename int_type_, int_type_ wrapped_min, int_type_ wrapped_max>
 bool operator==(int_type_ t, wrapped_int<int_type_, wrapped_min, wrapped_max>& wi) {
