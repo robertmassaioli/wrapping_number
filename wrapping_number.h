@@ -21,6 +21,13 @@ class wrapped_int {
       value = keepValueInRange(value + t);
     }
 
+    // pre-increment
+    wrapped_int<int_type_, wrapped_min, wrapped_max>& operator++() { value = keepValueInRange(++value); return *this; }
+    wrapped_int<int_type_, wrapped_min, wrapped_max>& operator--() { value = keepValueInRange(--value); return *this; }
+
+    // post-increment
+    const wrapped_int<int_type_, wrapped_min, wrapped_max> operator++(int);
+    const wrapped_int<int_type_, wrapped_min, wrapped_max> operator--(int);
     void operator-=(int_type_ t) {
       value = keepValueInRange(value - t);
     }
@@ -39,6 +46,12 @@ class wrapped_int {
 };
 
 template<typename int_type_, int_type_ wrapped_min, int_type_ wrapped_max>
+const wrapped_int<int_type_, wrapped_min, wrapped_max> wrapped_int<int_type_, wrapped_min, wrapped_max>::operator++(int) { wrapped_int<int_type_, wrapped_min, wrapped_max> new_w = *this; ++(*this); return new_w; } 
+template<typename int_type_, int_type_ wrapped_min, int_type_ wrapped_max>
+const wrapped_int<int_type_, wrapped_min, wrapped_max> wrapped_int<int_type_, wrapped_min, wrapped_max>::operator--(int) { wrapped_int<int_type_, wrapped_min, wrapped_max> new_w = *this; --(*this); return new_w; }
+
+
+template<typename int_type_, int_type_ wrapped_min, int_type_ wrapped_max>
 bool operator==(int_type_ t, wrapped_int<int_type_, wrapped_min, wrapped_max>& wi) {
   return wi == t;
 }
@@ -48,5 +61,20 @@ std::ostream& operator<<(std::ostream& out, wrapped_int<int_type_, wrapped_min, 
   return out << wi.get();
 }
   
+template<typename int_type_, int_type_ wrapped_min, int_type_ wrapped_max>
+wrapped_int<int_type_, wrapped_min, wrapped_max> operator+(wrapped_int<int_type_, wrapped_min, wrapped_max>& wi, int_type_ t) {
+  wrapped_int<int_type_, wrapped_min, wrapped_max> new_wi;
+  new_wi = wi.get();
+  new_wi += t;
+  return new_wi;
+}
+
+template<typename int_type_, int_type_ wrapped_min, int_type_ wrapped_max>
+wrapped_int<int_type_, wrapped_min, wrapped_max> operator+(int_type_ t, wrapped_int<int_type_, wrapped_min, wrapped_max>& wi) {
+  wrapped_int<int_type_, wrapped_min, wrapped_max> new_wi;
+  new_wi = wi.get();
+  new_wi += t;
+  return new_wi;
+}
 
 #endif
