@@ -1,4 +1,4 @@
-#include "wrapping_number.h"
+#include "wrapping_number.tcc"
 #include <iostream>
 
 using namespace std;
@@ -20,8 +20,8 @@ int main(int argc, char** argv) {
   cout << "New: " << new_wn << endl; 
   //cout << "Add nine: " << (wn + 9) << endl; 
   
-  for(int i = 0; i < 100; ++i) {
-    cout << wn-- << endl;
+  for(int i = 0; i < 10; ++i) {
+    cout << wn++ << endl;
   }
 
   return 0;

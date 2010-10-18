@@ -26,9 +26,6 @@ class wrapped_int {
     wrapped_int<int_type_, wrapped_min, wrapped_max>& operator--() { value = keepValueInRange(--value); return *this; }
 
     // post-increment
-    const wrapped_int<int_type_, wrapped_min, wrapped_max> operator++(int);
-    //const wrapped_int<int_type_, wrapped_min, wrapped_max> operator--(int);
-
     const wrapped_int<int_type_, wrapped_min, wrapped_max> operator++(int) { 
       wrapped_int<int_type_, wrapped_min, wrapped_max> new_w = *this; 
       ++(*this); 
@@ -65,6 +62,11 @@ bool operator==(int_type_ t, wrapped_int<int_type_, wrapped_min, wrapped_max>& w
 
 template<typename int_type_, int_type_ wrapped_min, int_type_ wrapped_max>
 std::ostream& operator<<(std::ostream& out, wrapped_int<int_type_, wrapped_min, wrapped_max>& wi) {
+  return out << wi.get();
+}
+
+template<typename int_type_, int_type_ wrapped_min, int_type_ wrapped_max>
+std::ostream& operator<<(std::ostream& out, const wrapped_int<int_type_, wrapped_min, wrapped_max>& wi) {
   return out << wi.get();
 }
   
