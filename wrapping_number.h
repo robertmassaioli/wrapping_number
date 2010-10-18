@@ -2,6 +2,7 @@
 #define __WRAPPING_NUMBER__
 
 #include <cassert>
+#include <ostream>
 
 // the range is [wrapped_min, wrapped_max)
 template<typename int_type_, int_type_ wrapped_min, int_type_ wrapped_max>
@@ -15,6 +16,16 @@ class wrapped_int {
     bool operator==(int_type_ t) {
       return value == keepValueInRange(t);
     }
+
+    void operator+=(int_type_ t) {
+      value = keepValueInRange(value + t);
+    }
+
+    void operator-=(int_type_ t) {
+      value = keepValueInRange(value - t);
+    }
+
+    int_type_ get() { return value; }
       
   private:
     int_type_ value;
@@ -31,5 +42,11 @@ template<typename int_type_, int_type_ wrapped_min, int_type_ wrapped_max>
 bool operator==(int_type_ t, wrapped_int<int_type_, wrapped_min, wrapped_max>& wi) {
   return wi == t;
 }
+
+template<typename int_type_, int_type_ wrapped_min, int_type_ wrapped_max>
+std::ostream& operator<<(std::ostream& out, wrapped_int<int_type_, wrapped_min, wrapped_max>& wi) {
+  return out << wi.get();
+}
+  
 
 #endif
